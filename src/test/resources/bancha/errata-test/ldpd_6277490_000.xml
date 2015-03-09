@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ERRATA>
+    <ID>ldpd_6277490_000</ID>
+    <AUDIENCE>external</AUDIENCE>
+    <TEXTDIRECTION>L-to-R</TEXTDIRECTION>
+    <OCR>Yes</OCR>
+    <SEARCH>Yes</SEARCH>
+    <COLLECTION></COLLECTION>
+    <NOTES></NOTES>
+    <LOG>10/24/2008:14:59:59 - eh2124       changed AUDIENCE from internal to external
+10/24/2008:14:59:59 - eh2124       changed TEXTDIRECTION from  to L-to-R
+10/24/2008:14:59:59 - eh2124       changed OCR from  to Yes
+10/24/2008:14:59:59 - eh2124       changed SEARCH from  to Yes
+</LOG>
+</ERRATA>

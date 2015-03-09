@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:mods="http://www.loc.gov/mods/v3"
+ xmlns:mets="http://www.loc.gov/METS/"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+   <mets:dmdSec ID="dmd1">
+      <mets:mdWrap MDTYPE="MODS">
+         <mets:xmlData>
+            <mods:mods>
+               <mods:titleInfo>
+                  <mods:title>Corporate Reports Collection</mods:title>
+               </mods:titleInfo>
+            </mods:mods>
+         </mets:xmlData>
+      </mets:mdWrap>
+   </mets:dmdSec>
+   <mets:structMap>
+      <mets:div LABEL="Corporate Reports Collection" TYPE="Collection" DMDID="dmd1">
+         <mets:div LABEL="Abraham &amp; Straus. Annual report for the fiscal year ending ..., 1926-1942">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6275371_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Abraham &amp; Straus. Report for the six months period ending ..., 1942-1949">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6275389_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="American Surety Company of New York. Annual statement for the year ending Dec. 31 ... of the condition and affairs of the American Surety Company of New York, 1914-1915">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6277531_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="American Surety Company of New York. Financial statement as of ..., Mar. 31, 1931 - Sep. 30, 1937">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6277568_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="American Surety Company of New York. Report of president for year ..., 1919-1943">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6277490_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Associated Gas and Electric Company. Annual report of the Associated Gas and Electric Company for the fiscal year ending ..., 1910-1921.">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6277922_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Associated Gas and Electric Company. Annual report of the Board of Directors to the stockholders for the year ended ..., 1922-1938">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6277914_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Associated Gas and Electric Corporation. Annual report for the year ended ..., 1941-1944">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6277927_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Bank for Savings in the City of New York. Bank for Savings in the City of New-York, 1899-1900, 1903-1905, 1907-1916, 1919-1925,1927">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6280178_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Bank for Savings in the City of New York. Report of the Bank for Savings in the City of New-York, 110th (1928)-122nd (1940), 1962">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6280158_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Bank for Savings in the City of New York. Statement, 1928-1961">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6277962_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Bankers &amp; Shippers Insurance Company. Statement of condition ..., 1934-1944">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6280225_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Brooklyn and Queens Transit Corporation. Annual report of Brooklyn and Queens Transit Corporation for the year ended ..., 1st (1930)-11th (1940)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6343597_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Brooklyn-Manhattan Transit Company. Annual report of Brooklyn-Manhattan Transit Corporation for the year ended ..., 1st (1924)-17th (1940)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6280234_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Chase National Bank of the City of New York. Report to the comptroller of the currency (condensed) of the condition of The Chase National Bank at close of business ..., 1909-1923">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6280248_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Commercial National Bank and Trust Company of New York. Annual report, 1929-1950">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6303435_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Consolidated Gas Company of New York. Report submitted at annual meeting, 1908-1923">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6280685_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Discount Corporation of New York. Annual report of the Discount Corporation of New York, 1922">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6281099_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Edison Electric Illuminating Co. of New York. Annual report of the Board of Directors to the stockholders at their annual meeting ..., 1890-1898">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6281133_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Fidelity and Casualty Company of New York. Annual statement, 1907, 1911">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6281159_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Fidelity-Phenix Fire Insurance Company of New York. Annual report for the year ending December 31st, ..., 1937-1950">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6281196_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Fidelity-Phenix Fire Insurance Company of New York. Annual statement, 1918,1925-1936">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6281183_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Hudson and Manhattan Railroad Company. Annual report of Hudson &amp; Manhattan Railroad Company, 1910-1950">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282382_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Manhattan Bond Fund. Annual report to shareholders, 1940-1943, 1945-1947">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282396_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Manhattan Electrical Supply Co. Annual statement, 1928-1929">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282421_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Manhattan Electrical Supply Co. Balance sheet, 1916-1927">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282431_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Mutual Life Insurance Company of New York. Annual report of the Mutual Life Insurance Company of New-York to its policy holders, 21st (1864)-30th (1873), 36th (1879)-45th (1888), 62nd (1905), 65th (1908)-67th (1910), 70th (1913)-72nd (1915), 74th (1917), 76th (1919)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6284263_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="National Bank of Commerce in New York. Address by ... report on operations for the year ended ... at annual meeting of the shareholders, 1923-1928">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282708_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="National Bank of Commerce in New York. Annual statement to the shareholders of the National Bank of Commerce in New York, 1st (1865)-12th (1876)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282690_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="National City Bank of New York. Statement of condition, 1915, 1923">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282727_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York &amp; Honduras Rosario Mining Company. Report of the New York &amp; Honduras Rosario Mining Company, 1904-1944, 1946-1950, 1952, 1957">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6283911_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York &amp; New England Railroad. Annual report to the stockholders of the New York and New England Railroad Company, 1st (1876)-18th (1893)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6283920_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Air Brake Company. , 1922-1923">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282786_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Air Brake Company. Consolidated income account of The New York Air Brake Co. year ending ..., 1908-1916">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282768_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Air Brake Company. , 1917-1921.">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6282749_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Airways, Inc. Annual report, 1954-1966">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6283902_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central Railroad Company. Annual report, 1949-1950">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285099_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central Railroad Company. , 1946-1947">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285087_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central Railroad Company. Annual report of the New York Central Railroad Company for the year ending September 30th ..., 1855-1862, 1864-1865, 1869">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285047_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central Railroad Company. Annual report, together with statistics and other data for the year ..., 1942-1945">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285082_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central Railroad Company. Annual statistical report, 1948">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285092_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central Railroad Company. Report of the board of directors to the stockholders for the year ended December 31 ..., 1915-1941">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285075_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central and Hudson River Railroad Company. Annual report of the board of directors of the New York Central and Hudson River Railroad Company and its leased lines to the stockholders, 19th (1888)-44th (1912)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285023_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central and Hudson River Railroad Company. Annual report of the New York Central and Hudson River Railroad Co., 1878, 1880, 1882-1885">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285032_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central and Hudson River Railroad Company. Annual report of the New York Central and Hudson River Railroad Company and its leased lines, being for the year ending September 30th ..., 1886-1887">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285026_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Central and Hudson River Railroad Company. Report of the board of directors to the stockholders, 1913-1914">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285009_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York City Omnibus Corporation. , 1949-1950, 1952">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285232_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York City Omnibus Corporation. Annual report to stockholders, employees and the public, for the year ended..., 1938-1948">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285229_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York City Omnibus Corporation. Annual report to the stockholders for the year ended ..., 1936-1937">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285223_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York Dock Company. Annual report, 4th (1905)-30th (1930)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285249_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York and New Haven Railroad Company. , 1849, 1851, 1853, 1859, 186, 1867, 1869 -1872">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6283939_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York and New Jersey Telephone Company. Annual report, 9th (1891)-17th (1899), 19th (1901)-20th (1902), 22nd (1904)-26th (1908)">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6284216_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="New York and Richmond Gas Company. Annual report / , 1906-1909, 1937-1941, 1943-1945">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6284228_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Power Corporation of New York. Annual report to stockholders for the year ended December 31 ..., 1930-1934.">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285252_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Provident Loan Society of New York. Annual report - The Provident Loan Society of New York, 1895, 1897-1899, 1901-1923">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6296994_000_mets.xml"/>
+         </mets:div>
+         <mets:div LABEL="Raybestos-Manhattan, Inc. Annual statement, 1930-1941">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6285261_000_mets.xml"/>
+         </mets:div>
+      </mets:div>
+   </mets:structMap>
+</mets:mets>
