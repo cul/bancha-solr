@@ -1,6 +1,8 @@
 package bancha;
 // Core java classes
 import java.io.*;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
 import java.util.*;
 
 // high-level interface to SAX processing
@@ -41,20 +43,20 @@ public class BuildIndex {
             System.out.println(e.getMessage());
             System.exit(-1);
         }
-        /* Find out which bib ids are members of which book collections */
 
         String indexPath = config.get("indexPath");
         System.out.println("Lucene index: " + indexPath);
 
         // Read xml files from the TEI directory, index each one
         File dir = null;
+        DirectoryStream<Path> files = null;
         try {
             dir = config.teiDir();
-        } catch (FileNotFoundException e) {
+            files = config.teiFiles();
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(-1);
         }
-        String [] files = dir.list();
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = null;
@@ -62,6 +64,7 @@ public class BuildIndex {
         try {
             // Use the default (non-validating) parser
             parser = factory.newSAXParser();
+            // Find out which bib ids are members of which book collections
             Hashtable<String,String> idToCollectionHash =
                     buildIdToCollectionHash(config, parser);
             proc = new SolrPageProcessor(config, idToCollectionHash);
@@ -71,8 +74,10 @@ public class BuildIndex {
         }
         BuildIndex indexer=  new BuildIndex(proc);
         AudienceHandler audience = new AudienceHandler();
-        for (int i = 0; i < files.length; i++) {
-            String xmlfile = dir + "/" + files[i];
+        Iterator<Path> paths = files.iterator();
+        while (paths.hasNext()) {
+        	Path path = paths.next();
+            String xmlfile = (path.isAbsolute()) ? path.toString() : dir + "/" + path.toString();
 
             // Skip any files we don't want to index.
             // XML files only.
@@ -98,8 +103,9 @@ public class BuildIndex {
         }
 
 
-        // We've indexed all documents - optimize and close the Lucene index
+        // We've indexed all documents - optimize the Solr index
         try {
+        	files.close();
             proc.cleanUp();
         } catch (Exception e) {
             System.err.println("Fatal error optimizing/closing index");
@@ -116,7 +122,7 @@ public class BuildIndex {
         this.digester = getDigester(proc);
     }
 
-    private static Digester getDigester(PageProcessor proc) {
+    protected static Digester getDigester(PageProcessor proc) {
         // Create digester, set global parameters
         Digester digester = new Digester();
         digester.setValidating(false);
@@ -140,7 +146,8 @@ public class BuildIndex {
         digester.addSetNext("book/page", "processPage" );
         return digester;
     }
-    private void indexDoc (String xmlfile) {
+
+    protected void indexDoc (String xmlfile) {
 
         System.out.println("Indexing " + xmlfile);
 

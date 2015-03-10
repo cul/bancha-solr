@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:mods="http://www.loc.gov/mods/v3"
+ xmlns:mets="http://www.loc.gov/METS/"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+   <mets:dmdSec ID="dmd1">
+      <mets:mdWrap MDTYPE="MODS">
+         <mets:xmlData>
+            <mods:mods>
+               <mods:titleInfo>
+                  <mods:title>Test Collection</mods:title>
+               </mods:titleInfo>
+            </mods:mods>
+         </mets:xmlData>
+      </mets:mdWrap>
+   </mets:dmdSec>
+   <mets:structMap>
+      <mets:div LABEL="Test Collection" TYPE="Collection" DMDID="dmd1">
+         <mets:div LABEL="Abraham &amp; Straus. Annual report for the fiscal year ending ..., 1926-1942">
+            <mets:mptr LOCTYPE="URL" xlink:href="ldpd_6275371_000_mets.xml"/>
+         </mets:div>
+      </mets:div>
+   </mets:structMap>
+</mets:mets>

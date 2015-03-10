@@ -36,7 +36,21 @@ public class CollectionIdHandler extends DefaultHandler {
             Attributes attrs) throws SAXException {
         // if (sName != null && ! sName.equals("")) System.out.println("sName=" + sName);
         // if (qName != null && ! qName.equals("")) System.out.println("qName=" + qName);
-
+        if (qName.equals("mets:div") && "Collection".equals(attrs.getValue("TYPE"))){
+        	if (currentCollection == null) {
+        		String currentCollection = attrs.getValue("LABEL");
+            	if ("Corporate Reports Collection".equals(currentCollection)) {
+            		currentCollection = "corprep";
+            	}
+            	if ("Library Columns Collection".equals(currentCollection)) {
+            		currentCollection = "columns";
+            	}
+            	if ("Digital New York City Books".equals(currentCollection)) {
+            		currentCollection = "dnyc";
+            	}
+            	this.currentCollection = currentCollection;
+        	}
+        }
         if (qName.equals("mets:mptr") ) {
             String xlink = attrs.getValue("xlink:href");
             if (xlink == null || xlink.equals("")) return;

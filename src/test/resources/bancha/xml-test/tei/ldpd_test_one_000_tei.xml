@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<book xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <page id="p-1">
+        <target_filename>ldpd_test_one_000/pages/ldpd_test_one_000_00000001.html</target_filename>
+        <basename>ldpd_test_one_000</basename>
+        <title>
+                     Test of one page ...
+                  </title>
+        <title_sort>Test of one page ...</title_sort>
+        <author>ACME Testing Company of New York.</author>
+        <page_id>1</page_id>
+        <page_num>[]</page_num>
+        <imprint>[New York] : ACME Testing Company of New York </imprint>
+        <year/>
+        <url_label/>
+        <text></text>
+    </page>
+</book>

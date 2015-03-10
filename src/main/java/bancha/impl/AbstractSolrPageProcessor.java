@@ -54,7 +54,8 @@ public abstract class AbstractSolrPageProcessor extends BasePageProcessor {
         doc.addField(fieldName("basename",true,false,false), page.getBaseName());
         doc.addField(fieldName("title",true,false,false), page.getTitle());
         doc.addField(fieldName("author",true,false,false), page.getAuthor());
-        doc.addField(fieldName("pageId",true,false,false), page.getPageId());
+        doc.addField(fieldName("page_id",true,false,false), page.getPageId());
+        doc.addField("id", idFor(page));
         doc.addField(fieldName("pageNum",true,false,false), page.getPageNum());
         doc.addField(fieldName("imprint",true,false,false), page.getImprint());
         doc.addField(fieldName("url_label",true,false,false), page.getUrlLabel());
@@ -72,7 +73,7 @@ public abstract class AbstractSolrPageProcessor extends BasePageProcessor {
         String sortTitle = sortable(page.getTitleSort());
         doc.addField(fieldName("sortTitle",true,false,false), sortTitle);
 
-        doc.addField("id", idFor(page));
+        doc.addField(fieldName("doc_id",true,false,false), docIdFor(page));
 
         String basename = page.getBaseName();
         String collection = (String)idToCollectionHash.get( basename );

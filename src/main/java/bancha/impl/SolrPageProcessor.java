@@ -52,6 +52,7 @@ public class SolrPageProcessor extends AbstractSolrPageProcessor {
     @Override
     public void processPage(BanchaPage page) throws BanchaException {
         SolrInputDocument doc = toDocument(page);
+    	if (config.onlyCollections() && "".equals(doc.getFieldValue(fieldName("collection",true,false,false)))) return;
         solrDocs.add(doc);
         if (solrDocs.size() > batchSize) {
             try {

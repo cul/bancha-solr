@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
 import java.util.Properties;
 
 
@@ -44,6 +46,9 @@ public class Configuration {
     public File teiDir() throws FileNotFoundException {
         return new File(xmlDir(),"tei");
     }
+    public DirectoryStream<Path> teiFiles() throws IOException {
+    	return java.nio.file.Files.newDirectoryStream(teiDir().toPath());
+    }
     public File xmlDir() throws FileNotFoundException {
         return new File(homeDir(),get("xmlDir"));
     }
@@ -71,5 +76,8 @@ public class Configuration {
             urlPrefixKey,
             properties.getProperty(DEFAULT_URL_PREFIX)
         );
+    }
+    public boolean onlyCollections() {
+    	return Boolean.valueOf(get("onlyCollections"));
     }
 }

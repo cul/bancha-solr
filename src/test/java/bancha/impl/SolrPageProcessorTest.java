@@ -1,7 +1,7 @@
 package bancha.impl;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+//import static org.mockito.Matchers.any;
+//import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,8 +28,9 @@ public class SolrPageProcessorTest {
 
 	private static final String FIELD = "field";
 	private static final String AUTHOR = "Arthur Author";
-	private static final String ID = "the id";
-	private static final String FILENAME = "ldpd_" + ID + "_123/pages/lol/wut.xml";
+	private static final String DOC_ID = "the id";
+	private static final String FILENAME = "ldpd_" + DOC_ID + "_123/pages/lol/wut.xml";
+	private static final String ID = "0";
 	private static final String TITLE = "The Title";
 	private static final String TITLE_SORT = "Title";
 	@Mock
@@ -53,6 +54,7 @@ public class SolrPageProcessorTest {
 		when(mockPage.getTitle()).thenReturn(TITLE);
 		when(mockPage.getTitleSort()).thenReturn(TITLE_SORT);
 		when(mockPage.getTargetFileName()).thenReturn(FILENAME);
+		when(mockPage.getPageId()).thenReturn(ID);
 	}
 
 	@After
@@ -66,8 +68,13 @@ public class SolrPageProcessorTest {
 	}
 
 	@Test
+	public void docIdFor() {
+		assertEquals(DOC_ID,test.docIdFor(mockPage));
+	}
+
+	@Test
 	public void idFor() {
-		assertEquals(ID,test.idFor(mockPage));
+		assertEquals(DOC_ID + "_" + ID,test.idFor(mockPage));
 	}
 
 	@Test
@@ -85,7 +92,7 @@ public class SolrPageProcessorTest {
 	@Test
 	public void toDocument() throws BanchaException {
 		SolrInputDocument actual = test.toDocument(mockPage);
-		assertEquals("the id", actual.getFieldValue("id"));
+		assertEquals("the id_0", actual.getFieldValue("id"));
 	}
 
 	@Test
