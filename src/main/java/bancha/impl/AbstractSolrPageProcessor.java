@@ -7,24 +7,35 @@ import org.apache.solr.common.SolrInputDocument;
 import bancha.BanchaException;
 import bancha.BanchaPage;
 import bancha.Configuration;
+import bancha.fields.IndexTypes;
 
-public abstract class AbstractSolrPageProcessor extends BasePageProcessor {
+public abstract class AbstractSolrPageProcessor extends BasePageProcessor
+implements IndexTypes {
 
     protected final Hashtable<String,String> idToCollectionHash;
     protected final Configuration config;
     protected final String solrUrl;
-    private static final byte STORE = 0b100;
-    private static final byte MULTIPLE = 0b010;
-    private static final byte TOKENIZE = 0b001;
+    private static final byte STORE = 0b0010;
+    private static final byte MULTIPLE = 0b0001;
+    private static final byte TOKENIZE = 0b0100;
+    private static final byte VECTOR = 0b1000;
     private static final String[] SUFFIXES = {
         "_si",
-        "_tei",
         "_sim",
-        "_teim",
         "_ssi",
-        "_tesi",
         "_ssim",
+        "_tei",
+        "_teim",
+        "_tesi",
         "_tesim",
+        "_si",
+        "_sim",
+        "_ssi",
+        "_ssim",
+        "_teiv",
+        "_teimv",
+        "_tesiv",
+        "_tesimv",
     };
     public AbstractSolrPageProcessor(Configuration config,
             Hashtable<String,String> idToCollectionHash) {
@@ -33,47 +44,52 @@ public abstract class AbstractSolrPageProcessor extends BasePageProcessor {
         this.solrUrl = config.get("solrUrl");
     }
 
-    protected static String suffix(boolean store, boolean multivalue, boolean tokenize) {
-        int ix = (((tokenize) ? TOKENIZE : 0B0) |
-                ((multivalue) ? MULTIPLE : 0B0) |
-                ((store) ? STORE : 0B0));
+    protected static String suffix(Store store, Multiple multivalue, Tokenize tokenize, Vector vector) {
+        int ix = (((tokenize == Tokenize.YES) ? TOKENIZE : 0B0) |
+                ((multivalue == Multiple.YES) ? MULTIPLE : 0B0) |
+                ((store == Store.YES) ? STORE : 0B0) |
+                ((vector == Vector.YES) ? VECTOR : 0B0));
                 
         return SUFFIXES[ix];
     }
-    protected String fieldName(String base, boolean store, boolean multivalue, boolean tokenize) {
-        return base + suffix(store, multivalue, tokenize);        
+    protected String fieldName(String base, Store store, Multiple multivalue, Tokenize tokenize) {
+        return fieldName(base,store,multivalue,tokenize,Vector.NO);
+        
+    }
+    protected String fieldName(String base, Store store, Multiple multivalue, Tokenize tokenize, Vector vector) {
+        return base + suffix(store, multivalue, tokenize, vector);
     }
     public SolrInputDocument toDocument(BanchaPage page) throws BanchaException {
         //System.out.println("Just entered addBookPage()");
 
         // All the data for the page to be indexed is in the BanchaPage object.
         SolrInputDocument doc = new SolrInputDocument();
-        doc.addField(fieldName("target_filename",true,false,false),
+        doc.addField(fieldName("target_filename",Store.YES,Multiple.NO,Tokenize.NO),
                 page.getTargetFileName());
         //System.out.println( page.getTargetFileName() );
-        doc.addField(fieldName("basename",true,false,false), page.getBaseName());
-        doc.addField(fieldName("title",true,false,false), page.getTitle());
-        doc.addField(fieldName("author",true,false,false), page.getAuthor());
-        doc.addField(fieldName("page_id",true,false,false), page.getPageId());
+        doc.addField(fieldName("basename",Store.YES,Multiple.NO,Tokenize.NO), page.getBaseName());
+        doc.addField(fieldName("title",Store.YES,Multiple.NO,Tokenize.NO), page.getTitle());
+        doc.addField(fieldName("author",Store.YES,Multiple.NO,Tokenize.NO), page.getAuthor());
+        doc.addField(fieldName("page_id",Store.YES,Multiple.NO,Tokenize.NO), page.getPageId());
         doc.addField("id", idFor(page));
-        doc.addField(fieldName("pageNum",true,false,false), page.getPageNum());
-        doc.addField(fieldName("imprint",true,false,false), page.getImprint());
-        doc.addField(fieldName("url_label",true,false,false), page.getUrlLabel());
-        doc.addField(fieldName("text",true,false,true), page.getText());
+        doc.addField(fieldName("pageNum",Store.YES,Multiple.NO,Tokenize.NO), page.getPageNum());
+        doc.addField(fieldName("imprint",Store.YES,Multiple.NO,Tokenize.NO), page.getImprint());
+        doc.addField(fieldName("url_label",Store.YES,Multiple.NO,Tokenize.NO), page.getUrlLabel());
+        doc.addField(fieldName("text",Store.YES,Multiple.NO,Tokenize.YES), page.getText());
 
         // Synthetic fields in the lucene index
 
-        doc.addField(fieldName("url",true,false,true), config.urlPrefix() + "/" + page.getTargetFileName());
+        doc.addField(fieldName("url",Store.YES,Multiple.NO,Tokenize.NO), config.urlPrefix() + "/" + page.getTargetFileName());
 
         // These fields do not have to be stored in order to sort by them,
         // but for debugging purposes we'll want to have access to it.
         String sortAuthor = sortable(page.getAuthor());
-        doc.addField(fieldName("sortAuthor",true,false,false), sortAuthor);
+        doc.addField(fieldName("sortAuthor",Store.YES,Multiple.NO,Tokenize.NO), sortAuthor);
 
         String sortTitle = sortable(page.getTitleSort());
-        doc.addField(fieldName("sortTitle",true,false,false), sortTitle);
+        doc.addField(fieldName("sortTitle",Store.YES,Multiple.NO,Tokenize.NO), sortTitle);
 
-        doc.addField(fieldName("doc_id",true,false,false), docIdFor(page));
+        doc.addField(fieldName("doc_id",Store.YES,Multiple.NO,Tokenize.NO), docIdFor(page));
 
         String basename = page.getBaseName();
         String collection = (String)idToCollectionHash.get( basename );
@@ -84,8 +100,11 @@ public abstract class AbstractSolrPageProcessor extends BasePageProcessor {
         // if (collection != null) {
         //  System.out.println(basename + " is part of collection " + collection);
         // }
-
-        doc.addField(fieldName("collection",true,false,false), collection);
+        if (!collection.isEmpty()) {
+            doc.addField(
+                fieldName("collection",Store.YES,Multiple.NO,Tokenize.NO),
+                collection);
+        }
 
         // debug...
         //System.out.println("id=" + id);
@@ -93,11 +112,11 @@ public abstract class AbstractSolrPageProcessor extends BasePageProcessor {
 
         // For simpler searching, concatenate all fields together
         // (Not actually ALL fields, only those a person might search.)
-        String allFields = page.getText() + " " +
-                           page.getTitle() + " " +
-                           page.getAuthor() + " " +
-                           page.getImprint();
-        doc.addField(fieldName("allFields",true,false,true), allFields);
+        String[] allFields = {page.getText(),
+                           page.getTitle(),
+                           page.getAuthor(),
+                           page.getImprint()};
+        doc.addField("all_text_timv", allFields);
         return doc;
 
 

@@ -45,14 +45,10 @@ public class SolrPageProcessor extends AbstractSolrPageProcessor {
     	return this.batchSize;
     }
 
-    protected String fieldName(String base, boolean store, boolean multivalue, boolean tokenize) {
-        return base + suffix(store, multivalue, tokenize);        
-    }
-
     @Override
     public void processPage(BanchaPage page) throws BanchaException {
         SolrInputDocument doc = toDocument(page);
-    	if (config.onlyCollections() && "".equals(doc.getFieldValue(fieldName("collection",true,false,false)))) return;
+    	if (config.onlyCollections() && "".equals(doc.getFieldValue(fieldName("collection",Store.YES,Multiple.NO,Tokenize.NO)))) return;
         solrDocs.add(doc);
         if (solrDocs.size() > batchSize) {
             try {

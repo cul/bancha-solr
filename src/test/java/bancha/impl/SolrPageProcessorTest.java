@@ -22,6 +22,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import bancha.BanchaException;
 import bancha.BanchaPage;
 import bancha.Configuration;
+import bancha.fields.IndexTypes.Multiple;
+import bancha.fields.IndexTypes.Store;
+import bancha.fields.IndexTypes.Tokenize;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SolrPageProcessorTest {
@@ -79,14 +82,14 @@ public class SolrPageProcessorTest {
 
 	@Test
 	public void fieldName() {
-		assertEquals("field_ssim",test.fieldName(FIELD, true, true, false));
-		assertEquals("field_sim",test.fieldName(FIELD, false, true, false));
-		assertEquals("field_tesim",test.fieldName(FIELD, true, true, true));
-		assertEquals("field_tesi",test.fieldName(FIELD, true, false, true));
-		assertEquals("field_tei",test.fieldName(FIELD, false, false, true));
-		assertEquals("field_teim",test.fieldName(FIELD, false, true, true));
-		assertEquals("field_ssi",test.fieldName(FIELD, true, false, false));
-		assertEquals("field_si",test.fieldName(FIELD, false, false, false));
+		assertEquals("field_ssim",test.fieldName(FIELD, Store.YES, Multiple.YES, Tokenize.NO));
+		assertEquals("field_sim",test.fieldName(FIELD, Store.NO, Multiple.YES, Tokenize.NO));
+		assertEquals("field_tesim",test.fieldName(FIELD, Store.YES, Multiple.YES, Tokenize.YES));
+		assertEquals("field_tesi",test.fieldName(FIELD, Store.YES, Multiple.NO, Tokenize.YES));
+		assertEquals("field_tei",test.fieldName(FIELD, Store.NO, Multiple.NO, Tokenize.YES));
+		assertEquals("field_teim",test.fieldName(FIELD, Store.NO, Multiple.YES, Tokenize.YES));
+		assertEquals("field_ssi",test.fieldName(FIELD, Store.YES, Multiple.NO, Tokenize.NO));
+		assertEquals("field_si",test.fieldName(FIELD, Store.NO, Multiple.NO, Tokenize.NO));
 	}
 
 	@Test

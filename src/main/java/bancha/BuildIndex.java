@@ -44,9 +44,6 @@ public class BuildIndex {
             System.exit(-1);
         }
 
-        String indexPath = config.get("indexPath");
-        System.out.println("Lucene index: " + indexPath);
-
         // Read xml files from the TEI directory, index each one
         File dir = null;
         DirectoryStream<Path> files = null;
