@@ -16,13 +16,33 @@ import bancha.Configuration;
 
 public class SolrPageProcessor extends AbstractSolrPageProcessor {
 
+	protected static final int DEFAULT_BATCH_SIZE = 10;
     private final List<SolrInputDocument> solrDocs;
     private SolrServer solr;
+    private int batchSize = DEFAULT_BATCH_SIZE;
 
     public SolrPageProcessor(Configuration config,
             Hashtable<String,String> idToCollectionHash) {
         super(config, idToCollectionHash);
         this.solrDocs = new ArrayList<>();
+    }
+
+    public SolrPageProcessor(Configuration config,
+    		SolrServer solr,
+            Hashtable<String,String> idToCollectionHash) {
+        super(config, idToCollectionHash);
+        this.solr = solr;
+        this.solrDocs = new ArrayList<>();
+    }
+
+    public int batchSize() {
+    	return this.batchSize;
+    }
+
+    public int batchSize(int batchSize) {
+    	if (batchSize < 1) throw new IllegalArgumentException("Bad batchSize value \"" + batchSize + "\"");
+    	this.batchSize = batchSize;
+    	return this.batchSize;
     }
 
     protected String fieldName(String base, boolean store, boolean multivalue, boolean tokenize) {
@@ -33,7 +53,7 @@ public class SolrPageProcessor extends AbstractSolrPageProcessor {
     public void processPage(BanchaPage page) throws BanchaException {
         SolrInputDocument doc = toDocument(page);
         solrDocs.add(doc);
-        if (solrDocs.size() > 10) {
+        if (solrDocs.size() > batchSize) {
             try {
                 post();
             } catch (Exception e) {

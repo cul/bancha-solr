@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 
@@ -19,8 +20,11 @@ public class Configuration {
     private final String homeDirKey;
     private final String urlPrefixKey;
     public Configuration(String env, String path) throws IOException {
+    	this(env,new FileInputStream(path));
+    }
+    public Configuration(String env, InputStream src) throws IOException {
         properties = new Properties();
-        properties.load(new FileInputStream(path));
+        properties.load(src);
         this.env = env;
         this.collectionsKey = env + ".collections";
         this.homeDirKey = env + ".homeDir";
@@ -49,6 +53,11 @@ public class Configuration {
             properties.getProperty("default." + key)
         );
     }
+
+    public String set(String key, String value){
+    	return (String) properties.setProperty(env + "." + key, value);
+    }
+
     public String [] collections() {
         String collections = properties.getProperty(
             collectionsKey,

@@ -10,7 +10,7 @@ public abstract class BasePageProcessor implements PageProcessor {
     }
     protected String idFor(BanchaPage page) {
         String id = page.getTargetFileName();
-        id = id.replaceAll("_[0-9][0-9][0-9]/pages/.*", "");
+        id = id.replaceAll("_\\d{3}/pages/.*", "");
         id = id.replaceAll("ldpd_", "");
         return id;
     }
