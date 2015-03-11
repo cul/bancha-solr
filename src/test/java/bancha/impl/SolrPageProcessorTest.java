@@ -84,10 +84,10 @@ public class SolrPageProcessorTest {
 	public void fieldName() {
 		assertEquals("field_ssim",test.fieldName(FIELD, Store.YES, Multiple.YES, Tokenize.NO));
 		assertEquals("field_sim",test.fieldName(FIELD, Store.NO, Multiple.YES, Tokenize.NO));
-		assertEquals("field_tesim",test.fieldName(FIELD, Store.YES, Multiple.YES, Tokenize.YES));
-		assertEquals("field_tesi",test.fieldName(FIELD, Store.YES, Multiple.NO, Tokenize.YES));
-		assertEquals("field_tei",test.fieldName(FIELD, Store.NO, Multiple.NO, Tokenize.YES));
-		assertEquals("field_teim",test.fieldName(FIELD, Store.NO, Multiple.YES, Tokenize.YES));
+		assertEquals("field_tsim",test.fieldName(FIELD, Store.YES, Multiple.YES, Tokenize.YES));
+		assertEquals("field_tsi",test.fieldName(FIELD, Store.YES, Multiple.NO, Tokenize.YES));
+		assertEquals("field_ti",test.fieldName(FIELD, Store.NO, Multiple.NO, Tokenize.YES));
+		assertEquals("field_tim",test.fieldName(FIELD, Store.NO, Multiple.YES, Tokenize.YES));
 		assertEquals("field_ssi",test.fieldName(FIELD, Store.YES, Multiple.NO, Tokenize.NO));
 		assertEquals("field_si",test.fieldName(FIELD, Store.NO, Multiple.NO, Tokenize.NO));
 	}
