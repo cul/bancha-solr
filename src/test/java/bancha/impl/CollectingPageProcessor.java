@@ -10,16 +10,12 @@ import bancha.BanchaException;
 import bancha.BanchaPage;
 import bancha.PageProcessor;
 
-public class CollectingPageProcessor extends BasePageProcessor
-implements PageProcessor, List<BanchaPage> {
+public abstract class CollectingPageProcessor<T> extends BasePageProcessor<T>
+implements PageProcessor, List<T> {
 
-	private List<BanchaPage> pages;
+	List<T> pages;
 	public CollectingPageProcessor() {
 		pages = new ArrayList<>();
-	}
-	@Override
-	public void processPage(BanchaPage page) throws BanchaException {
-		pages.add(page);
 	}
 
 	@Override
@@ -43,19 +39,21 @@ implements PageProcessor, List<BanchaPage> {
 		return pages.contains(o);
 	}
 	@Override
-	public Iterator<BanchaPage> iterator() {
+	public Iterator<T> iterator() {
 		return pages.iterator();
 	}
 	@Override
 	public Object[] toArray() {
 		return pages.toArray();
 	}
-	@Override
+
+	@SuppressWarnings("hiding")
+    @Override
 	public <T> T[] toArray(T[] a) {
 		return pages.toArray(a);
 	}
 	@Override
-	public boolean add(BanchaPage e) {
+	public boolean add(T e) {
 		return pages.add(e);
 	}
 	@Override
@@ -67,11 +65,11 @@ implements PageProcessor, List<BanchaPage> {
 		return pages.containsAll(c);
 	}
 	@Override
-	public boolean addAll(Collection<? extends BanchaPage> c) {
+	public boolean addAll(Collection<? extends T> c) {
 		return pages.addAll(c);
 	}
 	@Override
-	public boolean addAll(int index, Collection<? extends BanchaPage> c) {
+	public boolean addAll(int index, Collection<? extends T> c) {
 		return pages.addAll(index, c);
 	}
 	@Override
@@ -87,19 +85,19 @@ implements PageProcessor, List<BanchaPage> {
 		pages.clear();
 	}
 	@Override
-	public BanchaPage get(int index) {
+	public T get(int index) {
 		return pages.get(index);
 	}
 	@Override
-	public BanchaPage set(int index, BanchaPage element) {
+	public T set(int index, T element) {
 		return pages.set(index, element);
 	}
 	@Override
-	public void add(int index, BanchaPage element) {
+	public void add(int index, T element) {
 		pages.add(index, element);
 	}
 	@Override
-	public BanchaPage remove(int index) {
+	public T remove(int index) {
 		return pages.remove(index);
 	}
 	@Override
@@ -111,15 +109,15 @@ implements PageProcessor, List<BanchaPage> {
 		return pages.lastIndexOf(o);
 	}
 	@Override
-	public ListIterator<BanchaPage> listIterator() {
+	public ListIterator<T> listIterator() {
 		return pages.listIterator();
 	}
 	@Override
-	public ListIterator<BanchaPage> listIterator(int index) {
+	public ListIterator<T> listIterator(int index) {
 		return pages.listIterator(index);
 	}
 	@Override
-	public List<BanchaPage> subList(int fromIndex, int toIndex) {
+	public List<T> subList(int fromIndex, int toIndex) {
 		return pages.subList(fromIndex, toIndex);
 	}
 

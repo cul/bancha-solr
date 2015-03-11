@@ -1,20 +1,15 @@
 package bancha.impl;
 
 import bancha.BanchaPage;
+import bancha.BanchaPageTransformer;
 import bancha.PageProcessor;
 
 
-public abstract class BasePageProcessor implements PageProcessor {
-    protected String sortable(String src) {
-        return src.replaceAll(" ", "_").toLowerCase();
+public abstract class BasePageProcessor<T> implements PageProcessor {
+    public abstract BanchaPageTransformer<T> getTransformer();
+
+    public String idFor(BanchaPage page) {
+        return getTransformer().idFor(page);
     }
-    protected String docIdFor(BanchaPage page) {
-        String id = page.getTargetFileName();
-        id = id.replaceAll("_\\d{3}/pages/.*", "");
-        id = id.replaceAll("ldpd_", "");
-        return id;
-    }
-    protected String idFor(BanchaPage page) {
-        return docIdFor(page) + "_" + page.getPageId();
-    }
+
 }

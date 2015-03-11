@@ -7,8 +7,10 @@ import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Hashtable;
 
 import org.apache.commons.digester.Digester;
+import org.apache.solr.common.SolrInputDocument;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +19,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.xml.sax.SAXException;
 
-import bancha.impl.CollectingPageProcessor;
+import bancha.impl.CollectingBanchaPageProcessor;
+import bancha.impl.CollectingSolrPageProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BuildIndexTest {
@@ -27,6 +30,12 @@ public class BuildIndexTest {
 
 	@Mock
 	Digester mockDigester;
+
+	@Mock
+	Configuration mockConfig;
+
+	@Mock
+    Hashtable<String,String> mockHash;
 
 	private BuildIndex test;
 
@@ -51,12 +60,12 @@ public class BuildIndexTest {
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_test_one_000_tei.xml"));
 		verify(mockProc,times(1)).processPage(any(BanchaPage.class));
 		//TODO this is an integration test at this point, refactor
-		CollectingPageProcessor proc = new CollectingPageProcessor();
+		CollectingBanchaPageProcessor proc = new CollectingBanchaPageProcessor();
 		test = BuildIndex.getDigester(proc);
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_test_one_000_tei.xml"));
 		BanchaPage actual = proc.get(0);
 		assertEquals("test_one_1",proc.idFor(actual));
-		proc = new CollectingPageProcessor();
+		proc = new CollectingBanchaPageProcessor();
 		test = BuildIndex.getDigester(proc);
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_6277490_000_tei.xml"));
 		assertEquals(802,proc.size());
@@ -65,7 +74,26 @@ public class BuildIndexTest {
 		assertEquals(802,ids.size());
 	}
 
-	@Test
+    @Test
+    public void otherDigesterRules() throws IOException, SAXException, BanchaException {
+        CollectingSolrPageProcessor proc =
+                new CollectingSolrPageProcessor(mockConfig, mockHash);
+        Digester test = BuildIndex.getDigester(proc);
+        test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_6260645_004_tei.xml"));
+        HashSet<String> ids = new HashSet<>(96);
+        for (SolrInputDocument page:proc) ids.add(page.getFieldValue("id").toString());
+        assertEquals(96,ids.size());
+        proc =
+                new CollectingSolrPageProcessor(mockConfig, mockHash);
+        test = BuildIndex.getDigester(proc);
+        test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_6208639_002_tei.xml"));
+        assertEquals(246,proc.size());
+        ids = new HashSet<>(246);
+        for (SolrInputDocument page:proc) ids.add(page.getFieldValue("id").toString());
+        assertEquals(246,ids.size());
+    }
+
+    @Test
 	public void indexDoc() throws IOException, SAXException {
 		test.indexDoc("lolwut");
 		verify(mockDigester, times(1)).parse("lolwut");

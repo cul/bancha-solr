@@ -9,6 +9,7 @@ import java.util.*;
 import org.apache.commons.digester.Digester;
 
 import bancha.impl.SolrPageProcessor;
+import bancha.impl.Yield;
 import bancha.sax.AudienceHandler;
 import bancha.sax.CollectionIdHandler;
 
@@ -119,13 +120,15 @@ public class BuildIndex {
         this.digester = getDigester(proc);
     }
 
-    protected static Digester getDigester(PageProcessor proc) {
+    protected static Digester getDigester(final PageProcessor proc) {
         // Create digester, set global parameters
         Digester digester = new Digester();
         digester.setValidating(false);
         digester.push( proc );
 
         // Specify actions for each XML tag
+        Yield<PageProcessor> yield = Yield.wrap(proc);
+        digester.addRule("book", yield);
         digester.addObjectCreate("book/page", BanchaPage.class );
 
         digester.addCallMethod("book/page/target_filename", "setTargetFileName", 0);
