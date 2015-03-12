@@ -14,14 +14,12 @@ import bancha.fields.IndexTypes;
 public abstract class AbstractSolrPageProcessor extends BasePageProcessor<SolrInputDocument>
 implements IndexTypes, BaseFields {
 
-    protected final Hashtable<String,String> idToCollectionHash;
     protected final Configuration config;
     protected final String solrUrl;
     protected final SolrInputDocTransformer transformer;
     public AbstractSolrPageProcessor(Configuration config,
             Hashtable<String,String> idToCollectionHash) {
         this.config = config;
-        this.idToCollectionHash = idToCollectionHash;
         this.solrUrl = config.get("solrUrl");
         transformer = new SolrInputDocTransformer(config, idToCollectionHash);
     }

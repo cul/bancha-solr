@@ -1,9 +1,12 @@
 package bancha;
 // Core java classes
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 // high-level interface to SAX processing
 import org.apache.commons.digester.Digester;
@@ -17,8 +20,6 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.SAXParser;
 
 public class BuildIndex {
-
-    public static String banchaDir = "/e/ldpd/projects/bancha";
 
     private final Digester digester;
 
