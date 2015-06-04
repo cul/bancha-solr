@@ -34,7 +34,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>bancha.BuildIndex</mainClass>
+              <mainClass>edu.columbia.ldpd.text.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
