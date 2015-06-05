@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 
+
 // high-level interface to SAX processing
 import org.apache.commons.digester.Digester;
 
@@ -67,46 +68,50 @@ public class BuildIndex extends AbstractTextIndexer {
     }
 
     @Override
-    public void run(Configuration config, SAXParser parser) {
+    public void run(Configuration config, SAXParser parser) throws IndexingException {
         // Read xml files from the TEI directory, index each one
-        File dir = null;
+
         Iterable<Path> files = null;
         try {
-            dir = config.teiDir();
+
             files = config.teiFiles();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(-1);
         }
 
-        AudienceHandler audience = new AudienceHandler();
-        for (Path path : files) {
-            String xmlPath = (path.isAbsolute()) ? path.toString() : dir + "/" + path.toString();
+		int numIndexedRecords = 0;
+	    int numFailedRecords = 0;
 
-            // Skip any files we don't want to index.
-            // XML files only.
-            if (! xmlPath.endsWith(".xml") ) continue;
+	    AudienceHandler audience = new AudienceHandler();
+	    for (Path filePath: files) {
+	    	String xmlPath = filePath.toString();
+	    	// Skip any files we don't want to index.
+	    	// XML files only.
+	    	if (! xmlPath.endsWith(".xml") ) continue;
 
-            // Skip any files marked AUDIENCE=internal in their errata
-            // files - these are not to be searchable through lucene.
-            try {
-                if (errataAudienceIsInternal(parser, audience,config.errataDir(), xmlPath)) continue;
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-                System.exit(-1);
-            }
+	    	// Skip any files marked AUDIENCE=internal in their errata
+	    	// files - these are not to be searchable through lucene.
+	    	try {
+	    		if (errataAudienceIsInternal(parser, audience,config.errataDir(), xmlPath)) continue;
+	    	} catch (FileNotFoundException e) {
+	    		System.out.println(e.getMessage());
+	    		System.exit(-1);
+	    	}
 
-            // Indexing each TEI XML file
-            try {
-                this.indexXml(xmlPath);
-            } catch (Exception e) {
-                System.err.println("Fatal error in indexDoc(" + xmlPath + ")" );
-                System.err.println(e.getClass() + ": " + e.getMessage());
-                System.exit(-1);
-            }
+	    	// Indexing each TEI XML file
+	    	try {
+	    		this.indexXml(xmlPath.toString());
+	    	} catch (Exception e) {
+	    		numFailedRecords++;
+	    		System.err.println("Failed: " + filePath + "...");	    		
+	    		System.err.println(e.getMessage());	    		
+	    	}
+	    }
+        System.out.println(numIndexedRecords + " records successfully indexed.");
+        if (numFailedRecords > 0) {
+        	System.out.println(numFailedRecords + " records were not indexed due to errors.");
         }
-
-
     }
 
     @Override

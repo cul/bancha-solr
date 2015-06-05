@@ -1,6 +1,9 @@
 package edu.columbia.ldpd.text.impl;
 
+import java.io.IOException;
+
 import org.apache.commons.digester.Digester;
+import org.xml.sax.SAXException;
 
 import edu.columbia.ldpd.text.IndexingException;
 import edu.columbia.ldpd.text.TextIndexer;
@@ -14,16 +17,11 @@ public abstract class AbstractTextIndexer implements TextIndexer {
     }
 
     @Override
-	public void indexXml(String xmlUri) {
+	public void indexXml(String xmlUri) throws IOException, SAXException {
         System.out.println("Indexing " + xmlUri);
 
         // Parse the TEI XML doc using Digester (SAX wrapper)
-        try {
-            getDigester().parse(xmlUri);
-        } catch (Exception e) {
-            System.err.println("Exception in digester.parse(" + xmlUri + ")" );
-            System.err.println(e.getClass() + ": " + e.getMessage() );
-        }
+        getDigester().parse(xmlUri);
 	}
 
 	@Override

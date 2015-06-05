@@ -1,28 +1,27 @@
-package edu.columbia.ldpd.text.bancha.impl;
+package edu.columbia.ldpd.text.impl;
 
 import edu.columbia.ldpd.text.PageTransformer;
+import edu.columbia.ldpd.text.TextPage;
 import edu.columbia.ldpd.text.fields.IndexTypes.Multiple;
 import edu.columbia.ldpd.text.fields.IndexTypes.Store;
 import edu.columbia.ldpd.text.fields.IndexTypes.Tokenize;
 import edu.columbia.ldpd.text.fields.IndexTypes.Vector;
 import edu.columbia.ldpd.text.impl.NoOpPageTransformer;
-import edu.columbia.ldpd.text.bancha.BanchaException;
-import edu.columbia.ldpd.text.bancha.BanchaPage;
 
-public class CollectingBanchaPageProcessor extends CollectingPageProcessor<BanchaPage,BanchaPage> {
+public class CollectingPageProcessor<T extends TextPage> extends edu.columbia.ldpd.text.CollectingPageProcessor<T,T> {
 
-    private final NoOpPageTransformer<BanchaPage> transformer;
-    public CollectingBanchaPageProcessor(){
+    private final NoOpPageTransformer<T> transformer;
+    public CollectingPageProcessor(){
         super();
-        this.transformer = new NoOpPageTransformer<BanchaPage>();
+        this.transformer = new NoOpPageTransformer<>();
     }
     @Override
-    public void processPage(BanchaPage page) throws BanchaException {
+    public void processPage(T page) {
         pages.add(page);
     }
 
     @Override
-    public PageTransformer<BanchaPage,BanchaPage> getTransformer() {
+    public PageTransformer<T,T> getTransformer() {
         return transformer;
     }
 
@@ -32,7 +31,7 @@ public class CollectingBanchaPageProcessor extends CollectingPageProcessor<Banch
     }
 
 	@Override
-	public String docIdFor(BanchaPage page) {
+	public String docIdFor(T page) {
 		return this.transformer.docIdFor(page);
 	}
 

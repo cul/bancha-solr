@@ -9,10 +9,8 @@ package edu.columbia.ldpd.text.nny;
  *
  */
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import javax.xml.parsers.SAXParser;
 
@@ -33,9 +31,6 @@ import edu.columbia.ldpd.text.impl.Yield;
 public class BuildIndex extends AbstractTextIndexer {
 
     public static String indexDir = "index";  // can be overridden by command line option
-
-    public static int numIndexedRecords = 0;
-    public static int numFailedRecords = 0;
 
 	final static char OPTION_DELETE_FIELD           = 'f';
 	final static char OPTION_DELETE_INSTITUTION     = 'i';
@@ -122,19 +117,27 @@ public class BuildIndex extends AbstractTextIndexer {
     }
 
 	@Override
-	public void run(Configuration config, SAXParser parser)
-			throws IndexingException {
-    	String xmlPath = config.get("xmlPath");
-    	if (!Paths.get(xmlPath).isAbsolute()){
-    		try {
-				xmlPath = new File(config.homeDir(),xmlPath).getPath();
-			} catch (FileNotFoundException e) {
-				throw new IndexingException(e.getMessage(),e);
-			} 
-    	}
-    	this.indexXml(xmlPath);
+	public void run(Configuration config, SAXParser parser) throws IndexingException {
 
-        System.out.println("Parsed " + xmlPath + "...");
+		int numIndexedRecords = 0;
+	    int numFailedRecords = 0;
+	    try {
+		for (Path xmlPath: config.xmlFiles()) {
+            // Skip any files we don't want to index.
+            // XML files only.
+            if (! xmlPath.toString().endsWith(".xml") ) continue;
+	    	try {
+	    		this.indexXml(xmlPath.toString());
+	    		numIndexedRecords++;
+	    	} catch (Exception e) {
+	    		numFailedRecords++;
+                System.err.println("Failed: " + xmlPath + "...");	    		
+                System.err.println(e.getMessage());	    		
+	    	}
+    	}
+	    } catch (IOException e) {
+	    	throw new IndexingException(e.getMessage(),e);
+	    }
         System.out.println(numIndexedRecords + " records successfully indexed.");
         if (numFailedRecords > 0) {
         	System.out.println(numFailedRecords + " records were not indexed due to errors.");

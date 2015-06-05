@@ -1,4 +1,4 @@
-package edu.columbia.ldpd.text.bancha.impl;
+package edu.columbia.ldpd.text;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +14,7 @@ import edu.columbia.ldpd.text.impl.BasePageProcessor;
 public abstract class CollectingPageProcessor<Y extends TextPage, T> extends BasePageProcessor<Y, T>
 implements PageProcessor<Y>, List<T> {
 
-	List<T> pages;
+	protected List<T> pages;
 	public CollectingPageProcessor() {
 		pages = new ArrayList<>();
 	}

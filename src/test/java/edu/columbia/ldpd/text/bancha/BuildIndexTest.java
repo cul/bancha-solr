@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
 import edu.columbia.ldpd.text.Configuration;
 import edu.columbia.ldpd.text.IndexingException;
 import edu.columbia.ldpd.text.PageProcessor;
-import edu.columbia.ldpd.text.bancha.impl.CollectingBanchaPageProcessor;
+import edu.columbia.ldpd.text.impl.CollectingPageProcessor;
 import edu.columbia.ldpd.text.bancha.impl.CollectingSolrPageProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -63,12 +63,12 @@ public class BuildIndexTest {
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_test_one_000_tei.xml"));
 		verify(mockProc,times(1)).processPage(any(BanchaPage.class));
 		//TODO this is an integration test at this point, refactor
-		CollectingBanchaPageProcessor proc = new CollectingBanchaPageProcessor();
+		CollectingPageProcessor<BanchaPage> proc = new CollectingPageProcessor<>();
 		test = IndexCallable.getDigester(proc);
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_test_one_000_tei.xml"));
 		BanchaPage actual = proc.get(0);
 		assertEquals("test_one_1",proc.idFor(actual));
-		proc = new CollectingBanchaPageProcessor();
+		proc = new CollectingPageProcessor<>();
 		test = IndexCallable.getDigester(proc);
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_6277490_000_tei.xml"));
 		assertEquals(802,proc.size());

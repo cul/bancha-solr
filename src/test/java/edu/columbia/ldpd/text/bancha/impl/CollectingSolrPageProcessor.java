@@ -4,6 +4,7 @@ import java.util.Hashtable;
 
 import org.apache.solr.common.SolrInputDocument;
 
+import edu.columbia.ldpd.text.CollectingPageProcessor;
 import edu.columbia.ldpd.text.Configuration;
 import edu.columbia.ldpd.text.PageTransformer;
 import edu.columbia.ldpd.text.fields.IndexTypes.Multiple;
