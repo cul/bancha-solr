@@ -105,7 +105,8 @@ public class BuildIndex extends AbstractTextIndexer {
 	    	} catch (Exception e) {
 	    		numFailedRecords++;
 	    		System.err.println("Failed: " + filePath + "...");	    		
-	    		System.err.println(e.getMessage());	    		
+	    		System.err.println(e.getMessage());
+	    		e.printStackTrace();
 	    	}
 	    }
         System.out.println(numIndexedRecords + " records successfully indexed.");

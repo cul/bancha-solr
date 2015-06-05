@@ -2,6 +2,8 @@ package edu.columbia.ldpd.text;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +41,20 @@ public class ConfigurationTest {
 	    assertEquals("wut",test.get("lol"));
 	}
 
+	@Test
+	public void absoluteXmlFile() throws IOException {
+		Configuration testConfig = new Configuration("test");
+		testConfig.set("xmlFile","/src/test/resources/nny/all.xml");
+		testConfig.set("homeDir", ".");
+	    assertEquals("/src/test/resources/nny/all.xml",testConfig.xmlFiles().iterator().next().toString());
+	}
+	@Test
+	public void relativeXmlFile() throws IOException {
+		Configuration testConfig = new Configuration("test");
+		testConfig.set("xmlFile","src/test/resources/nny/all.xml");
+		testConfig.set("homeDir", ".");
+	    assertEquals("./src/test/resources/nny/all.xml",testConfig.xmlFiles().iterator().next().toString());
+	}
 	@Test
 	public void collections() {
 		assertArrayEquals(COLLECTIONS,test.collections());

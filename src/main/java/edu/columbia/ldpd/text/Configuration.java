@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Properties;
 
 
@@ -63,22 +63,25 @@ public class Configuration {
     }
     public File xmlDir() throws FileNotFoundException {
     	String dirPath = get("xmlDir");
-    	if (!Paths.get(dirPath).isAbsolute()){
+    	File dir = new File(dirPath);
+    	if (!dir.isAbsolute()){
     		return new File(homeDir(),dirPath);
     	} else {
-    		return new File(dirPath);
+    		return dir;
     	}
     }
     public Iterable<Path> xmlFiles() throws IOException {
     	String dirPath = get("xmlDir");
-        if (dirPath != null) {
+        String xmlPath = get("xmlFile");
+        if (dirPath != null && xmlPath == null) {
         	return java.nio.file.Files.newDirectoryStream(xmlDir().toPath());
         }
-        String xmlPath = get("xmlFile");
-    	if (!Paths.get(xmlPath).isAbsolute()){
-    		return new File(homeDir(),xmlPath).toPath();
+        File xmlFile = new File(xmlPath);
+    	if (!xmlFile.isAbsolute()){
+    		File parent = (dirPath == null) ? homeDir() : xmlDir();
+    		return Collections.singletonList(new File(parent,xmlPath).toPath());
     	} else {
-    		return new File(xmlPath).toPath();
+    		return Collections.singletonList(new File(xmlPath).toPath());
     	}
     }
     public String get(String key){

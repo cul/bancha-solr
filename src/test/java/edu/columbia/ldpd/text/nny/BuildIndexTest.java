@@ -38,4 +38,11 @@ public class BuildIndexTest {
 		assertEquals(53,ids.size());
 	}
 
+	@Test
+	public void testFileConfig() {
+		testConfig = new Configuration("test");
+		testConfig.set("xmlFile","src/test/resources/nny/all.xml");
+		testConfig.set("homeDir", ".");
+		test();
+	}
 }

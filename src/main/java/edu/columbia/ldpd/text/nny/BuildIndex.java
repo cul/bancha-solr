@@ -133,6 +133,7 @@ public class BuildIndex extends AbstractTextIndexer {
 	    		numFailedRecords++;
                 System.err.println("Failed: " + xmlPath + "...");	    		
                 System.err.println(e.getMessage());	    		
+	    		e.printStackTrace();
 	    	}
     	}
 	    } catch (IOException e) {
