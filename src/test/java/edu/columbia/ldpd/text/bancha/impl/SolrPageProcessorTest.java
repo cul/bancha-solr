@@ -26,6 +26,7 @@ import edu.columbia.ldpd.text.IndexingException;
 import edu.columbia.ldpd.text.fields.IndexTypes.Multiple;
 import edu.columbia.ldpd.text.fields.IndexTypes.Store;
 import edu.columbia.ldpd.text.fields.IndexTypes.Tokenize;
+import edu.columbia.ldpd.text.impl.AbstractSolrPageProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SolrPageProcessorTest {
@@ -63,7 +64,7 @@ public class SolrPageProcessorTest {
 
 	@After
 	public void tearDown() throws Exception {
-		test.batchSize(SolrPageProcessor.DEFAULT_BATCH_SIZE);
+		test.batchSize(AbstractSolrPageProcessor.DEFAULT_BATCH_SIZE);
 	}
 
 	@Test
