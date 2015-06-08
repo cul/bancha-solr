@@ -53,7 +53,10 @@ implements IndexTypes, BaseFields<T> {
     @Override
     public void processPage(T page) throws IndexingException {
         SolrInputDocument doc = toDocument(page);
-    	if (this.config.onlyCollections() && "".equals(doc.getFieldValue(transformer.fieldName("collection",Store.YES,Multiple.NO,Tokenize.NO)))) return;
+    	if (this.config.onlyCollections()) {
+            Object c = doc.getFieldValue(transformer.fieldName("collection",Store.YES,Multiple.YES,Tokenize.NO));
+            if (c == null || "".equals(c.toString())) return;
+        }
         solrDocs.add(doc);
         if (solrDocs.size() > batchSize) {
             try {
