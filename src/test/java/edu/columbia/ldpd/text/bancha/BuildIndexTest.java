@@ -67,7 +67,7 @@ public class BuildIndexTest {
 		test = IndexCallable.getDigester(proc);
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_test_one_000_tei.xml"));
 		BanchaPage actual = proc.get(0);
-		assertEquals("test_one_1",proc.idFor(actual));
+		assertEquals("test_one_000_1",proc.idFor(actual));
 		proc = new CollectingPageProcessor<>();
 		test = IndexCallable.getDigester(proc);
 		test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_6277490_000_tei.xml"));

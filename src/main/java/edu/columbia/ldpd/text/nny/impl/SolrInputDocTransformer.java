@@ -16,6 +16,12 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
     public SolrInputDocTransformer(Configuration config) {
         this.config = config;
     }
+    @Override
+    public String docIdFor(NNYRecord page) {
+        String id = page.getTargetFileName();
+        id = id.split(".")[0];
+        return id;
+    }
 	@Override
 	public SolrInputDocument transform(NNYRecord page)
 			throws IndexingException {

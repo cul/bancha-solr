@@ -25,7 +25,7 @@ implements BaseFields<Y> {
     @Override
     public String docIdFor(Y page) {
         String id = page.getTargetFileName();
-        id = id.replaceAll("_\\d{3}/pages/.*", "");
+        id = id.replaceAll("/pages/.*", "");
         id = id.replaceAll("ldpd_", "");
         return id;
     }

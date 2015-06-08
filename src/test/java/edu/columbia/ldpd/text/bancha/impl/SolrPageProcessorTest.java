@@ -33,8 +33,9 @@ public class SolrPageProcessorTest {
 
 	private static final String FIELD = "field";
 	private static final String AUTHOR = "Arthur Author";
-	private static final String DOC_ID = "the id";
-	private static final String FILENAME = "ldpd_" + DOC_ID + "_123/pages/lol/wut.xml";
+	private static final String SERIES_ID = "the id";
+	private static final String DOC_ID = SERIES_ID + "_123";
+	private static final String FILENAME = "ldpd_" + DOC_ID + "/pages/lol/wut.xml";
 	private static final String ID = "0";
 	private static final String TITLE = "The Title";
 	private static final String TITLE_SORT = "Title";
@@ -97,7 +98,7 @@ public class SolrPageProcessorTest {
 	@Test
 	public void toDocument() throws IndexingException {
 		SolrInputDocument actual = test.toDocument(mockPage);
-		assertEquals("the id_0", actual.getFieldValue("id"));
+		assertEquals(DOC_ID + "_" + ID, actual.getFieldValue("id"));
 	}
 
 	@Test
