@@ -4,11 +4,14 @@ import static org.junit.Assert.*;
 
 import java.util.HashSet;
 
+import org.apache.solr.common.SolrInputDocument;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.columbia.ldpd.text.Configuration;
-import edu.columbia.ldpd.text.impl.CollectingPageProcessor;
+import edu.columbia.ldpd.text.nny.impl.SolrInputDocTransformer;
+import edu.columbia.ldpd.text.impl.CollectingSolrPageProcessor;
 
 public class BuildIndexTest {
 
@@ -21,7 +24,8 @@ public class BuildIndexTest {
 	}
 	@Test
 	public void test() {
-		CollectingPageProcessor<NNYRecord> proc = new CollectingPageProcessor<>();
+        CollectingSolrPageProcessor<NNYRecord> proc =
+                new CollectingSolrPageProcessor<>(testConfig, new SolrInputDocTransformer(testConfig));
 		BuildIndex index = new BuildIndex(proc);
 		try {
 			index.run(testConfig, null);
@@ -32,8 +36,8 @@ public class BuildIndexTest {
 		assertEquals(53,proc.size());
 		HashSet<String> ids = new HashSet<>();
 
-		for (NNYRecord page: proc) {
-			ids.add(proc.idFor(page));
+		for (SolrInputDocument page: proc) {
+			ids.add(page.getFieldValue("id").toString());
 		}
 		assertEquals(53,ids.size());
 	}

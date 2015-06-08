@@ -11,15 +11,26 @@ import edu.columbia.ldpd.text.fields.IndexTypes.Store;
 import edu.columbia.ldpd.text.fields.IndexTypes.Tokenize;
 import edu.columbia.ldpd.text.impl.BasePageTransformer;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, SolrInputDocument> {
     private Configuration config;
+    private Pattern id_pattern = Pattern.compile("\\w+(_\\d+){2}_[a-z0-9]+");
+
     public SolrInputDocTransformer(Configuration config) {
         this.config = config;
     }
+
     @Override
     public String docIdFor(NNYRecord page) {
         String id = page.getTargetFileName();
-        id = id.split(".")[0];
+        Matcher m = id_pattern.matcher(id);
+        if (!m.find()) {
+            System.err.println("Cannot parse id from \"" + id + "\"");
+            throw new IllegalArgumentException("Cannot parse id from \"" + id + "\"");
+        }
+        id = m.group(0);
         return id;
     }
 	@Override

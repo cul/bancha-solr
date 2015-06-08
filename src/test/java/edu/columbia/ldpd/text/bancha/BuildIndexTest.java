@@ -22,8 +22,10 @@ import org.xml.sax.SAXException;
 import edu.columbia.ldpd.text.Configuration;
 import edu.columbia.ldpd.text.IndexingException;
 import edu.columbia.ldpd.text.PageProcessor;
+import edu.columbia.ldpd.text.bancha.BanchaPage;
+import edu.columbia.ldpd.text.bancha.impl.SolrInputDocTransformer;
 import edu.columbia.ldpd.text.impl.CollectingPageProcessor;
-import edu.columbia.ldpd.text.bancha.impl.CollectingSolrPageProcessor;
+import edu.columbia.ldpd.text.impl.CollectingSolrPageProcessor;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BuildIndexTest {
@@ -79,15 +81,15 @@ public class BuildIndexTest {
 
     @Test
     public void otherDigesterRules() throws IOException, SAXException, BanchaException {
-        CollectingSolrPageProcessor proc =
-                new CollectingSolrPageProcessor(mockConfig, mockHash);
+        CollectingSolrPageProcessor<BanchaPage> proc =
+                new CollectingSolrPageProcessor<>(mockConfig, new SolrInputDocTransformer(mockConfig, mockHash));
         Digester test = IndexCallable.getDigester(proc);
         test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_6260645_004_tei.xml"));
         HashSet<String> ids = new HashSet<>(96);
         for (SolrInputDocument page:proc) ids.add(page.getFieldValue("id").toString());
         assertEquals(96,ids.size());
         proc =
-                new CollectingSolrPageProcessor(mockConfig, mockHash);
+                new CollectingSolrPageProcessor<>(mockConfig, new SolrInputDocTransformer(mockConfig, mockHash));
         test = IndexCallable.getDigester(proc);
         test.parse(getClass().getResourceAsStream("/bancha/xml-test/tei/ldpd_6208639_002_tei.xml"));
         assertEquals(246,proc.size());
