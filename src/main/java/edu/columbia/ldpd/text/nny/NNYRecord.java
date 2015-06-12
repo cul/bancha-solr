@@ -1,5 +1,6 @@
 package edu.columbia.ldpd.text.nny;
 
+import edu.columbia.ldpd.text.Configuration;
 import edu.columbia.ldpd.text.TextPage;
 
 /**
@@ -109,5 +110,9 @@ public class NNYRecord implements TextPage {
     
     public String getTitleSort() {
     	return getTitle();
+    }
+    public String getUrl(Configuration config) {
+        String intervieweeRootUrl = config.urlPrefix() + "/" + getBaseName();
+        return intervieweeRootUrl + "/transcripts/" + getTargetFileName();
     }
 }

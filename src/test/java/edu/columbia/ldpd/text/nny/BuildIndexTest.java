@@ -21,6 +21,7 @@ public class BuildIndexTest {
 		testConfig = new Configuration("test");
 		testConfig.set("xmlDir","src/test/resources/nny");
 		testConfig.set("homeDir", ".");
+		testConfig.set("urlPrefix", "http://test.org/nny");
 	}
 	@Test
 	public void test() {
@@ -37,6 +38,7 @@ public class BuildIndexTest {
 		HashSet<String> ids = new HashSet<>();
 
 		for (SolrInputDocument page: proc) {
+			assertTrue(page.getFieldValue("url_ssi").toString().indexOf("//",8) == -1);
 			ids.add(page.getFieldValue("id").toString());
 		}
 		assertEquals(53,ids.size());
@@ -47,6 +49,7 @@ public class BuildIndexTest {
 		testConfig = new Configuration("test");
 		testConfig.set("xmlFile","src/test/resources/nny/all.xml");
 		testConfig.set("homeDir", ".");
+		testConfig.set("urlPrefix", "http://test.org/nny");
 		test();
 	}
 }

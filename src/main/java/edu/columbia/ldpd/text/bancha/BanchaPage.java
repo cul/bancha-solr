@@ -1,5 +1,6 @@
 package edu.columbia.ldpd.text.bancha;
 
+import edu.columbia.ldpd.text.Configuration;
 import edu.columbia.ldpd.text.TextPage;
 
 /**
@@ -87,5 +88,8 @@ import edu.columbia.ldpd.text.TextPage;
     }
     public String getText() {
     	return text;
+    }
+    public String getUrl(Configuration config) {
+        return config.urlPrefix() + "/" + getTargetFileName();
     }
   }

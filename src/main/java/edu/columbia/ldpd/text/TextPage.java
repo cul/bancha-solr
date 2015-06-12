@@ -10,4 +10,5 @@ public interface TextPage {
     public String getTitle();
     public String getTitleSort();
     public String getAuthor();
+    public String getUrl(Configuration config);
 }

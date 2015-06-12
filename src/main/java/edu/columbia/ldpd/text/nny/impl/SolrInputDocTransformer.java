@@ -55,11 +55,7 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
         doc.addField(fieldName("interview_num",Store.YES,Multiple.NO,Tokenize.NO), page.getInterviewNum());
         doc.addField(fieldName("text",Store.YES,Multiple.NO,Tokenize.YES), page.getText());
 
-        // Synthetic fields in the lucene index
-		String intervieweeRootUrl = config.urlPrefix() + "/" + page.getBaseName();
-        String transcriptUrl      = intervieweeRootUrl + "/transcripts/" + page.getTargetFileName();
-
-        doc.addField(fieldName("url",Store.YES,Multiple.NO,Tokenize.NO), transcriptUrl);
+        doc.addField(fieldName("url",Store.YES,Multiple.NO,Tokenize.NO), page.getUrl(config));
 
         // These fields do not have to be stored in order to sort by them,
         // but for debugging purposes we'll want to have access to it.
