@@ -17,9 +17,15 @@ import java.util.regex.Pattern;
 public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, SolrInputDocument> {
     private Configuration config;
     private Pattern id_pattern = Pattern.compile("\\w+(_\\d+){2}_[a-z0-9]+");
+    private final String sessionNumField;
+    private final String yearField;
+    private final String interviewNumField;
 
     public SolrInputDocTransformer(Configuration config) {
         this.config = config;
+        this.sessionNumField = fieldName("session_num",Store.YES,Multiple.NO,Tokenize.NO);
+        this.yearField = fieldName("year",Store.YES,Multiple.NO,Tokenize.NO);
+        this.interviewNumField = fieldName("interview_num",Store.YES,Multiple.NO,Tokenize.NO);
     }
 
     @Override
@@ -38,37 +44,28 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
 			throws IndexingException {
         SolrInputDocument doc = new SolrInputDocument();
 		
-	    if (page.getSessionNum() != null) 
-	        doc.addField(fieldName("session_num",Store.YES,Multiple.NO,Tokenize.NO), page.getSessionNum());
+        doc.addField(fileNameField, page.getTargetFileName());
+        doc.addField(baseNameField, page.getBaseName());
+        doc.addField(titleField, page.getTitle());
+        doc.addField(authorField, page.getInterviewee());
+        doc.addField(pageIdField, page.getPageId());
+        doc.addField(ID_FIELD, idFor(page));
+        doc.addField(pageNumField, page.getPageNum());
+        doc.addField(textField, page.getText());
 
- 	    if (page.getYear() != null)
-	        doc.addField(fieldName("year",Store.YES,Multiple.NO,Tokenize.NO), page.getYear());
-        doc.addField(fieldName("target_filename",Store.YES,Multiple.NO,Tokenize.NO),
-                page.getTargetFileName());
-        //System.out.println( page.getTargetFileName() );
-        doc.addField(fieldName("basename",Store.YES,Multiple.NO,Tokenize.NO), page.getBaseName());
-        doc.addField(fieldName("title",Store.YES,Multiple.NO,Tokenize.NO), page.getTitle());
-        doc.addField(fieldName("author",Store.YES,Multiple.NO,Tokenize.NO), page.getInterviewee());
-        doc.addField(fieldName("page_id",Store.YES,Multiple.NO,Tokenize.NO), page.getPageId());
-        doc.addField("id", idFor(page));
-        doc.addField(fieldName("page_num",Store.YES,Multiple.NO,Tokenize.NO), page.getPageNum());
-        doc.addField(fieldName("interview_num",Store.YES,Multiple.NO,Tokenize.NO), page.getInterviewNum());
-        doc.addField(fieldName("text",Store.YES,Multiple.NO,Tokenize.YES), page.getText());
-
-        doc.addField(fieldName("url",Store.YES,Multiple.NO,Tokenize.NO), page.getUrl(config));
+        doc.addField(urlField, page.getUrl(config));
 
         // These fields do not have to be stored in order to sort by them,
         // but for debugging purposes we'll want to have access to it.
         String sortAuthor = sortable(page.getAuthor());
-        doc.addField(fieldName("sort_author",Store.YES,Multiple.NO,Tokenize.NO), sortAuthor);
+        doc.addField(sortAuthorField, sortAuthor);
 
         String sortTitle = sortable(page.getTitleSort());
-        doc.addField(fieldName("sort_title",Store.YES,Multiple.NO,Tokenize.NO), sortTitle);
+        doc.addField(sortTitleField, sortTitle);
 
-        doc.addField(fieldName("doc_id",Store.YES,Multiple.NO,Tokenize.NO), docIdFor(page));
+        doc.addField(docIdField, docIdFor(page));
 
-        doc.addField(
-            fieldName("collection",Store.YES,Multiple.YES,Tokenize.NO), new String[]{"nny"});
+        doc.addField(collectionField, new String[]{"nny"});
 
         // debug...
         //System.out.println("id=" + id);
@@ -80,7 +77,15 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
                            page.getTitle(),
                            page.getInterviewee(),
                            page.getInterviewer()};
-        doc.addField("all_text_timv", allFields);
+        doc.addField(ALL_TEXT_FIELD, allFields);
+
+        // locally defined fields
+        if (page.getSessionNum() != null) 
+            doc.addField(sessionNumField, page.getSessionNum());
+
+        if (page.getYear() != null)
+            doc.addField(yearField, page.getYear());
+        doc.addField(interviewNumField, page.getInterviewNum());
         return doc;
 	}
 
