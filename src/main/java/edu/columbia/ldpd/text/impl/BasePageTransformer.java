@@ -23,6 +23,7 @@ implements BaseFields<Y> {
     protected final String authorField;
     protected final String pageIdField;
     protected final String pageNumField;
+    protected final String pageNumSortField = "page_num_isi";
     protected final String textField;
     protected final String urlField;
     protected final String sortAuthorField;

@@ -16,10 +16,12 @@ import java.util.regex.Pattern;
 
 public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, SolrInputDocument> {
     private Configuration config;
-    private Pattern id_pattern = Pattern.compile("\\w+(_\\d+){2}_[a-z0-9]+");
+    private Pattern id_pattern = Pattern.compile("\\w+(_\\d+){2}_[a-z0-9]+"); // "
     private final String sessionNumField;
+    private final String sessionNumSortField = "session_num_isi";
     private final String yearField;
     private final String interviewNumField;
+    private final String interviewNumSortField = "interview_num_isi";
 
     public SolrInputDocTransformer(Configuration config) {
         this.config = config;
@@ -50,7 +52,15 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
         doc.addField(authorField, page.getInterviewee());
         doc.addField(pageIdField, page.getPageId());
         doc.addField(ID_FIELD, idFor(page));
-        doc.addField(pageNumField, page.getPageNum());
+        if (page.getPageNum() != null) {
+            doc.addField(pageNumField,page.getPageNum());
+            String sortPage = page.getPageNum().replaceAll("[^\\d]","");
+            if (sortPage.isEmpty()) {
+                doc.addField(pageNumSortField, 0);
+            } else {
+                doc.addField(pageNumSortField, Integer.parseInt(sortPage));
+            }
+        }
         doc.addField(textField, page.getText());
 
         doc.addField(urlField, page.getUrl(config));
@@ -80,12 +90,22 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
         doc.addField(ALL_TEXT_FIELD, allFields);
 
         // locally defined fields
-        if (page.getSessionNum() != null) 
+        if (page.getSessionNum() != null) {
             doc.addField(sessionNumField, page.getSessionNum());
+            String sortSession = page.getSessionNum().replaceAll("[^\\d]","");
+            if (sortSession.isEmpty()) {
+                doc.addField(sessionNumSortField, 0);
+            } else {
+                doc.addField(sessionNumSortField, Integer.parseInt(sortSession));
+            }
+        }
 
         if (page.getYear() != null)
             doc.addField(yearField, page.getYear());
-        doc.addField(interviewNumField, page.getInterviewNum());
+        if (page.getInterviewNum() != null) {
+            doc.addField(interviewNumField, page.getInterviewNum());
+            doc.addField(interviewNumSortField, Integer.parseInt(page.getInterviewNum()));
+        }
         return doc;
 	}
 

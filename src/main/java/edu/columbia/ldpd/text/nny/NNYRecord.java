@@ -104,8 +104,7 @@ public class NNYRecord implements TextPage {
     }
     public String getTitle() {
     	return new StringBuffer().append(interviewee).append(" (").append(year).append(") - Interview ").
-    			append(interviewNum).append(", Session ").append(sessionNum).append(", Page ").append(pageNum)
-    			.toString();
+    			append(interviewNum).append(", Session ").append(sessionNum).toString();
     }
     
     public String getTitleSort() {

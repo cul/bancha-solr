@@ -39,7 +39,15 @@ public class SolrInputDocTransformer extends BasePageTransformer<BanchaPage, Sol
         doc.addField(authorField, page.getAuthor());
         doc.addField(pageIdField, page.getPageId());
         doc.addField(ID_FIELD, idFor(page));
-        doc.addField(pageNumField,page.getPageNum());
+        if (page.getPageNum() != null) {
+            doc.addField(pageNumField,page.getPageNum());
+            String sortPage = page.getPageNum().replaceAll("[^\\d]","");
+            if (sortPage.isEmpty()) {
+                doc.addField(pageNumSortField, 0);
+            } else {
+                doc.addField(pageNumSortField, Integer.parseInt(sortPage));
+            }
+        }
         doc.addField(textField, page.getText());
 
         doc.addField(urlField, page.getUrl(config));
