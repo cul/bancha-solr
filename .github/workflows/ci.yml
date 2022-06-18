@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ '*' ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt-hotspot'
+          java-version: '8'
+      # TODO: Run tests.  This is just a basic port from Travis CI (where tests weren't previously
+      # running), except that we're using Java 8 in the configuration above instead of Java 7.
