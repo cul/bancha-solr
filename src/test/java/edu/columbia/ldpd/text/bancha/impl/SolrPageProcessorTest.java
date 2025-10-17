@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.Hashtable;
 
-import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.After;
@@ -40,7 +40,7 @@ public class SolrPageProcessorTest {
 	private static final String TITLE = "The Title";
 	private static final String TITLE_SORT = "Title";
 	@Mock
-	SolrServer mockServer;
+	SolrClient mockServer;
 
 	@Mock
 	Configuration mockConfig;

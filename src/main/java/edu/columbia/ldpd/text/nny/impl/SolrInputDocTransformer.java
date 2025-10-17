@@ -41,11 +41,11 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
         id = m.group(0);
         return id;
     }
-	@Override
-	public SolrInputDocument transform(NNYRecord page)
-			throws IndexingException {
+    @Override
+    public SolrInputDocument transform(NNYRecord page)
+            throws IndexingException {
         SolrInputDocument doc = new SolrInputDocument();
-		
+        
         doc.addField(fileNameField, page.getTargetFileName());
         doc.addField(baseNameField, page.getBaseName());
         doc.addField(titleField, page.getTitle());
@@ -107,6 +107,6 @@ public class SolrInputDocTransformer extends BasePageTransformer<NNYRecord, Solr
             doc.addField(interviewNumSortField, Integer.parseInt(page.getInterviewNum()));
         }
         return doc;
-	}
+    }
 
 }

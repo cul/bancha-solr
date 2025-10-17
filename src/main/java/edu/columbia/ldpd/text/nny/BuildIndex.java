@@ -37,6 +37,7 @@ public class BuildIndex extends AbstractTextIndexer {
 	final static char OPTION_DELETE_TEXT            = 't';
 	final static char OPTION_INDEX_DIRECTORY        = 'd';
 	final static char OPTION_APPEND                 = 'a';
+	final static char OPTION_JSON                 = 'j';
 
     public static void usage() {
 		
